@@ -9,17 +9,24 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { getDateString } from "@/app/utils"
+import { getDateString, getLanguageByFilename } from "@/app/utils"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 import { PastebinWithTs } from "@/app/definitions"
 import CopyToClipBoard from "@/components/copy-to-clipboard"
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coldarkDark, coldarkCold } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useTheme } from "next-themes"
+
+
 
 export const runtime = 'edge'
 
 
 const Detail = ({ pastebin }: { pastebin: PastebinWithTs }) => {
+    const language = getLanguageByFilename(pastebin.name)
+    const { theme, setTheme } = useTheme()
     return (
         <Card>
             <CardHeader className="space-y-0 flex flex-row justify-between">
@@ -30,7 +37,9 @@ const Detail = ({ pastebin }: { pastebin: PastebinWithTs }) => {
                 <div><CopyToClipBoard value={pastebin.content} /></div>
             </CardHeader>
             <CardContent>
-                <pre className="text-wrap">{pastebin.content}</pre>
+                <SyntaxHighlighter language={language} style={theme === 'dark' ? coldarkDark : coldarkCold} wrapLongLines={true} customStyle={{ background: 'inherit', padding: 0, margin: 0 }}>
+                    {pastebin.content}
+                </SyntaxHighlighter>
             </CardContent>
         </Card>
     )

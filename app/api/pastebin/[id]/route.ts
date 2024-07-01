@@ -3,7 +3,7 @@ import { getUniqueID, httpError } from '@/app/utils'
 
 export const runtime = 'edge'
 
-export async function GET(request: Request, {params}:{params:{id: string}}) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
     const id = params.id
     if (!id) {
         return httpError('Invalid id')
@@ -13,5 +13,5 @@ export async function GET(request: Request, {params}:{params:{id: string}}) {
     if (!item) {
         return httpError('Invalid id')
     }
-    return new Response(item, {headers: {'Content-Type': 'application/json'}})
+    return new Response(item, { headers: { 'Content-Type': 'application/json' } })
 }
