@@ -56,13 +56,9 @@ export default function PastebinDetail({ params }: { params: { id: string } }) {
             toast('Error', { description: e })
         })
     }, [params.id])
-    return (
-        <div className="container max-w-screen-xl items-center mt-4">
-            {loading ? (
-                <Skeleton className="h-[400px] w-full rounded-xl" />
-            ) : (
-                <Detail pastebin={pastebin} />
-            )}
-        </div>
+    return loading ? (
+        <Skeleton className="h-[400px] w-full rounded-xl" />
+    ) : (
+        <Detail pastebin={pastebin} />
     )
 }

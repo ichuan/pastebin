@@ -3,7 +3,7 @@ import { Inter as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
-import Nav from "@/components/nav" 
+import Nav from "@/components/nav"
 
 import "./globals.css";
 
@@ -30,8 +30,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-           <Nav/>
-          {children}
+          <Nav />
+          <div className="container max-w-screen-xl items-center my-4">
+            {children}
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>

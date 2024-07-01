@@ -28,7 +28,7 @@ export default function NewPastebin() {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const res = await fetch('/api/pastebin', {
-      body: JSON.stringify({name, content}),
+      body: JSON.stringify({ name, content }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -37,35 +37,33 @@ export default function NewPastebin() {
     })
     const id = await res.text()
     if (!res.ok) {
-      return toast('Error', {description: id})
+      return toast('Error', { description: id })
     }
-    toast('Pastebin created', {description: 'Copy the url to share this pastebin'})
+    toast('Pastebin created', { description: 'Copy the url to share this pastebin' })
     router.push(`/i/${id}`)
   }
   return (
-    <div className="container max-w-screen-xl items-center mt-4">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Create a new pastebin</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form id="create" method="post" onSubmit={handleSubmit}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" type="text" placeholder="Filename including extension…" autoFocus required onChange={e => setName(e.target.value)} />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="content">Content</Label>
-                <Textarea id="content" name="content" className="min-h-96" required onChange={e => setContent(e.target.value)} />
-              </div>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle>Create a new pastebin</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form id="create" method="post" onSubmit={handleSubmit}>
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" name="name" type="text" placeholder="Filename including extension…" autoFocus required onChange={e => setName(e.target.value)} />
             </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <SubmitButton form="create">Save</SubmitButton>
-        </CardFooter>
-      </Card>
-    </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="content">Content</Label>
+              <Textarea id="content" name="content" className="min-h-96" required onChange={e => setContent(e.target.value)} />
+            </div>
+          </div>
+        </form>
+      </CardContent>
+      <CardFooter>
+        <SubmitButton form="create">Save</SubmitButton>
+      </CardFooter>
+    </Card>
   );
 }
