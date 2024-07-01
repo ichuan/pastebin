@@ -131,3 +131,12 @@ export const getLanguageByFilename = (filename: string) => {
 export const getLanguageByFileExtension = (extension: string) => {
     return FILE_EXT_TO_LANGUAGE.hasOwnProperty(extension) ? FILE_EXT_TO_LANGUAGE[extension] : 'text'
 }
+
+export const downloadText = (name: string, text: string) => {
+    const blob = new Blob([text], { type: "text/plain" })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.download = name.indexOf('.') === -1 ? `${name}.txt` : name
+    link.href = url
+    link.click()
+}
