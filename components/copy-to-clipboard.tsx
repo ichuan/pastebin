@@ -1,4 +1,4 @@
-import { Clipboard, Check } from 'lucide-react'
+import { Copy, Check } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { useState } from 'react'
 import Tooltip from "@/components/tooltip"
@@ -19,7 +19,7 @@ export default function CopyToClipBoard({ value }: { value: string }) {
         <Tooltip onClick={setClipboard} trigger={copied ? (
             <Check size={14} />
         ) : (
-            <Clipboard size={14} />
+            <Copy size={14} />
         )} tooltip={'Copy content to clipboard'}>
 
         </Tooltip>
