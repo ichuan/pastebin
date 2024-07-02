@@ -1,13 +1,17 @@
 "use client"
 
-import { Sun, Moon, Menu, File } from 'lucide-react'
+import { Sun, Moon, Menu, File, Github } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
+import NavLink from './nav-link'
+import { usePathname } from 'next/navigation'
 import { useTheme } from "next-themes"
 
 
 export default function Nav() {
+  const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   return (
     <div className="flex flex-col bg-background">
@@ -21,18 +25,8 @@ export default function Nav() {
               <File className="h-6 w-6" />
               <span>Pastebin</span>
             </Link>
-            <Link
-              href="/"
-              className="text-foreground transition-colors hover:text-foreground"
-            >
-              New
-            </Link>
-            <Link
-              href="/about"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              About
-            </Link>
+            <NavLink href="/">New</NavLink>
+            <NavLink href="/about">About</NavLink>
           </nav>
           <Sheet>
             <SheetTrigger asChild>
@@ -54,19 +48,15 @@ export default function Nav() {
                   <File className="h-6 w-6" />
                   <span>Pastebin</span>
                 </Link>
-                <Link href="/" className="hover:text-foreground">
-                  New
-                </Link>
-                <Link
-                  href="/about"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  About
-                </Link>
+                <NavLink href="/">New</NavLink>
+                <NavLink href="/about">About</NavLink>
               </nav>
             </SheetContent>
           </Sheet>
           <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
+            <Link href="https://github.com/ichuan/pastebin" className={buttonVariants({ variant: "ghost", size: "icon" })}>
+              <Github className="size-4" />
+            </Link>
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
               {theme === 'light' ? (
                 <Moon className="size-4" />
