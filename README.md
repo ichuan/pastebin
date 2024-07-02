@@ -1,6 +1,8 @@
 # Pastebin
 A simple pastebin. This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https://developers.cloudflare.com/pages/get-started/c3).
 
+Demo: [https://pb.981234.xyz/](https://pb.981234.xyz/)
+
 ## Getting Started
 
 ```bash

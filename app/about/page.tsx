@@ -10,7 +10,7 @@ export default function About() {
         Features
       </h3>
       <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-        <li>Syntax highlighting (determining language type by filename extension); also supports pure text mode (append "/raw" to the URL)</li>
+        <li>Syntax highlighting (determining language type by filename extension); also supports pure text mode (append <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">/raw</code> to the URL)</li>
         <li>Integration with Cloudflare Captcha (Turnstile)</li>
         <li>Download a pastebin</li>
       </ul>
