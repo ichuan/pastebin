@@ -8,6 +8,7 @@ import { SubmitButton } from "@/components/submit-button"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import { toast } from "sonner"
+import { FILENAME_MAX_SIZE, CONTENT_MAX_SIZE } from "./consts"
 
 export const runtime = 'edge';
 
@@ -52,11 +53,11 @@ export default function NewPastebin() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" name="name" type="text" placeholder="Filename including extension…" autoFocus required onChange={e => setName(e.target.value)} />
+              <Input id="name" name="name" type="text" placeholder="Filename including extension…" maxLength={FILENAME_MAX_SIZE} autoFocus required onChange={e => setName(e.target.value)} />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="content">Content</Label>
-              <Textarea id="content" name="content" className="min-h-96" required onChange={e => setContent(e.target.value)} />
+              <Textarea id="content" name="content" className="min-h-96" maxLength={CONTENT_MAX_SIZE} required onChange={e => setContent(e.target.value)} />
             </div>
           </div>
         </form>
