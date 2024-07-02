@@ -8,7 +8,9 @@ import { SubmitButton } from "@/components/submit-button"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import { toast } from "sonner"
-import { FILENAME_MAX_SIZE, CONTENT_MAX_SIZE } from "./consts"
+import { TURNSTILE_SITEKEY, TURNSTILE_SECRETKEY, FILENAME_MAX_SIZE, CONTENT_MAX_SIZE } from "./consts"
+import { Turnstile, TurnstileTheme } from '@marsidev/react-turnstile'
+import { useTheme } from "next-themes"
 
 export const runtime = 'edge';
 
@@ -24,12 +26,15 @@ import {
 
 export default function NewPastebin() {
   const router = useRouter()
+  const { theme, setTheme } = useTheme()
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
+  const [challengeSucess, setChallengeSuccess] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState('')
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const res = await fetch('/api/pastebin', {
-      body: JSON.stringify({ name, content }),
+      body: JSON.stringify({ name, content, captchaToken }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -59,11 +64,15 @@ export default function NewPastebin() {
               <Label htmlFor="content">Content</Label>
               <Textarea id="content" name="content" className="min-h-96" maxLength={CONTENT_MAX_SIZE} required onChange={e => setContent(e.target.value)} />
             </div>
+            <div className="flex flex-col space-y-1.5">
+              <input type="hidden" name="captcha" value={captchaToken} />
+              <Turnstile className="rounded-md" options={{ theme: theme as TurnstileTheme }} siteKey={TURNSTILE_SITEKEY} onSuccess={(token) => { setCaptchaToken(token); setChallengeSuccess(true) }} />
+            </div>
           </div>
         </form>
       </CardContent>
       <CardFooter>
-        <SubmitButton form="create">Save</SubmitButton>
+        <SubmitButton form="create" disabled={!challengeSucess}>Save</SubmitButton>
       </CardFooter>
     </Card>
   );

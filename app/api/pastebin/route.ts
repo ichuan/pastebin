@@ -1,15 +1,15 @@
 import type { NextRequest } from 'next/server'
 import { getRequestContext } from '@cloudflare/next-on-pages'
-import { getUniqueID, httpError } from '@/app/utils'
-import { Pastebin } from '@/app/definitions'
+import { getUniqueID, httpError, verifyCaptcha } from '@/app/utils'
+import { PastebinWithCaptcha } from '@/app/definitions'
 import { FILENAME_MAX_SIZE, CONTENT_MAX_SIZE } from '@/app/consts'
 
 export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
 
-  const params: Pastebin = await request.json()
-  if (!params.name || !params.content) {
+  const params: PastebinWithCaptcha = await request.json()
+  if (!params.name || !params.content || !params.captchaToken) {
     return httpError('Invalid params')
   }
   if (params.content.length > CONTENT_MAX_SIZE) {
@@ -17,6 +17,9 @@ export async function POST(request: NextRequest) {
   }
   if (params.name.length > FILENAME_MAX_SIZE) {
     return httpError('Filename too long')
+  }
+  if (!await verifyCaptcha(params.captchaToken)) {
+    return httpError('Invalid captcha')
   }
   const KV = getRequestContext().env.pastebin
   const getNewId = async () => {

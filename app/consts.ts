@@ -96,3 +96,7 @@ export const EXACT_FILENAME_LANGUAGE: { [key: string]: string } = {
   Dockerfile: 'docker',
   Makefile: 'makefile',
 }
+
+// https://developers.cloudflare.com/turnstile/get-started/
+export const TURNSTILE_SITEKEY = process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY || ''
+export const TURNSTILE_SECRETKEY = process.env.TURNSTILE_SECRETKEY || ''
