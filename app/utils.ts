@@ -47,9 +47,9 @@ export const downloadText = (name: string, text: string) => {
     link.click()
 }
 
-export const verifyCaptcha = async (token: string) => {
+export const verifyCaptcha = async (token: string, secret: string) => {
     const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
-    const res = await fetch(url, { method: 'POST', body: `secret=${encodeURIComponent(consts.TURNSTILE_SECRETKEY)}&response=${encodeURIComponent(token)}`, headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+    const res = await fetch(url, { method: 'POST', body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`, headers: { 'content-type': 'application/x-www-form-urlencoded' } })
     const data: { success: boolean } = await res.json()
     return data.success
 }

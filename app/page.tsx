@@ -9,12 +9,9 @@ import { SubmitButton } from "@/components/submit-button"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import { toast } from "sonner"
-import { TURNSTILE_SITEKEY, TURNSTILE_SECRETKEY, FILENAME_MAX_SIZE, CONTENT_MAX_SIZE } from "./consts"
+import { TURNSTILE_SITEKEY, FILENAME_MAX_SIZE, CONTENT_MAX_SIZE } from "./consts"
 import { Turnstile, TurnstileTheme } from '@marsidev/react-turnstile'
 import { useTheme } from "next-themes"
-
-export const runtime = 'edge';
-
 import {
   Card,
   CardContent,
@@ -23,6 +20,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
+export const runtime = 'edge';
 
 
 export default function NewPastebin() {

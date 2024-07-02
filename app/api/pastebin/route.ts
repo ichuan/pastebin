@@ -18,10 +18,11 @@ export async function POST(request: NextRequest) {
   if (params.name.length > FILENAME_MAX_SIZE) {
     return httpError('Filename too long')
   }
-  if (!await verifyCaptcha(params.captchaToken)) {
+  const env = getRequestContext().env
+  const KV = env.pastebin
+  if (!await verifyCaptcha(params.captchaToken, env.TURNSTILE_SECRETKEY)) {
     return httpError('Invalid captcha')
   }
-  const KV = getRequestContext().env.pastebin
   const getNewId = async () => {
     while (true) {
       let id = getUniqueID()

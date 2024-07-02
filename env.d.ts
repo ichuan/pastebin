@@ -3,4 +3,6 @@
 
 interface CloudflareEnv {
     pastebin: KVNamespace
+    TURNSTILE_SITEKEY: string
+    TURNSTILE_SECRETKEY: string
 }
