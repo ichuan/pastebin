@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
+import { Skeleton } from "@/components/ui/skeleton"
 import { SubmitButton } from "@/components/submit-button"
 import { useRouter } from 'next/navigation'
 import { useState } from 'react';
@@ -30,6 +31,7 @@ export default function NewPastebin() {
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
   const [challengeSucess, setChallengeSuccess] = useState(false)
+  const [captchaLoaded, setCaptchaLoaded] = useState(false)
   const [captchaToken, setCaptchaToken] = useState('')
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -66,7 +68,8 @@ export default function NewPastebin() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <input type="hidden" name="captcha" value={captchaToken} />
-              <Turnstile className="rounded-md" options={{ theme: theme as TurnstileTheme }} siteKey={TURNSTILE_SITEKEY} onSuccess={(token) => { setCaptchaToken(token); setChallengeSuccess(true) }} />
+              <Turnstile className={`rounded-md ${captchaLoaded ? '' : 'hidden'}`} options={{ theme: theme as TurnstileTheme }} siteKey={TURNSTILE_SITEKEY} onSuccess={(token) => { setCaptchaToken(token); setChallengeSuccess(true) }} onWidgetLoad={() => setCaptchaLoaded(true)} />
+              <Skeleton className={`h-[65px] w-[300px] rounded-md ${captchaLoaded ? 'hidden' : ''}`} />
             </div>
           </div>
         </form>
