@@ -6,12 +6,10 @@ import { Button } from '@/components/ui/button'
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 import NavLink from './nav-link'
-import { usePathname } from 'next/navigation'
 import { useTheme } from "next-themes"
 
 
 export default function Nav() {
-  const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   return (
     <div className="flex flex-col bg-background">
